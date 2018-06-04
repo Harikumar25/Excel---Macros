@@ -1,0 +1,20 @@
+
+Sub Email()
+Dim P As Range
+Dim r As Variant
+Set P = Sheet2.Cells
+r = Application.WorksheetFunction.VLookup(Range("B6"), Sheet4.Range("A:B"), 2, 0)
+ActiveWorkbook.EnvelopeVisible = True
+m = MsgBox("Are you want to send mail " & "-" & r, vbYesNo + vbInformation, "Send Confirmation Message")
+If m = vbYes Then
+With P.Parent.MailEnvelope.Item
+.TO = r
+.CC = "harikumar.subramanian@citi.com"
+.BCC = ""
+.Subject = "Server Aging Report " & "-" & r
+.send
+End With
+ElseIf m = vbNo Then
+Exit Sub
+End If
+End Sub
